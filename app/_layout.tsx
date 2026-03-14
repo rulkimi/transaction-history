@@ -21,8 +21,14 @@ export default function RootLayout() {
           }} 
         />
         <Stack.Screen
-          name="transactions" 
+          name="transactions/index" 
           options={{ title: "Transactions" }} 
+        />
+        <Stack.Screen
+          name="transactions/[id]" 
+          options={{ 
+            title: "" 
+          }} 
         />
       </Stack>
     </ThemeProvider>
