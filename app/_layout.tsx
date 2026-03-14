@@ -5,7 +5,10 @@ import "./global.css";
 export default function RootLayout() {
   return (
     <ThemeProvider>
-      <Stack />
+      <Stack>
+        <Stack.Screen name="index" options={{ title: "Home"}} />
+        <Stack.Screen name="transactions" options={{ title: "Transactions" }} />
+      </Stack>
     </ThemeProvider>
   );
 }
