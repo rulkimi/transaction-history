@@ -3,7 +3,7 @@ import { vars } from "nativewind";
 export const themes = {
   default: {
     light: vars({
-      "--background": "#fcfcfc",
+      "--background": "#f2f2f7",
       "--foreground": "#171717",
       "--border": "#dfdfdf",
       "--input": "#f6f6f6",
@@ -18,6 +18,8 @@ export const themes = {
       "--muted-foreground": "#626262",
       "--accent": "#ededed",
       "--accent-foreground": "#202020",
+      "--card": "#fcfcfc",
+      "--card-foreground": "#171717",
       "--popover": "#fcfcfc",
       "--popover-foreground": "#525252",
     }),
@@ -37,6 +39,8 @@ export const themes = {
       "--muted-foreground": "#a2a2a2",
       "--accent": "#313131",
       "--accent-foreground": "#fafafa",
+      "--card": "#1a1a1a",
+      "--card-foreground": "#e2e8f0",
       "--popover": "#242424",
       "--popover-foreground": "#a9a9a9",
     }),

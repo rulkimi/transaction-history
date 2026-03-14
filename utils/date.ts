@@ -46,3 +46,7 @@ export const formatDate = (
 
   return dateObj.toLocaleString("en-MY", opts);
 };
+
+export const extractDate = (dateString: string) => {
+  return dateString.slice(0, 10);
+}
