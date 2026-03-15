@@ -8,7 +8,7 @@ export const themes = {
       "--border": "#dfdfdf",
       "--input": "#f6f6f6",
       "--ring": "#79e6a8",
-      "--primary": "#79e6a8",
+      "--primary": "#00b96b",
       "--primary-foreground": "#1e2723",
       "--secondary": "#fdfdfd",
       "--secondary-foreground": "#171717",

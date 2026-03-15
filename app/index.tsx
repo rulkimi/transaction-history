@@ -1,6 +1,5 @@
 import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import transactions from "@/constants/transactions.json";
-import { formatPrice } from "@/utils/format-price";
 import TransactionCard from "@/components/transaction-card";
 import { Transaction } from "@/types";
 import { Link } from "expo-router";

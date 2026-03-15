@@ -10,41 +10,39 @@ export const formatDate = (
   const dateObj = typeof date === "string" ? new Date(date) : date;
   const { short = false, time = true } = options;
 
-  // Short date: "13/03/2026" or "13/03/2026, 21:10"
-  // Default format: "13 Mar 2026, 9:10 PM"
+  // "13/03/2026" or "13/03/2026, 09:10 AM"
   if (short) {
-    let opts: Intl.DateTimeFormatOptions = {
+    const d = dateObj.toLocaleDateString("en-MY", {
       day: "2-digit",
       month: "2-digit",
       year: "numeric",
-    };
+    });
     if (time) {
-      opts = {
-        ...opts,
+      const t = dateObj.toLocaleTimeString("en-MY", {
         hour: "2-digit",
         minute: "2-digit",
-        hour12: false
-      };
+        hour12: true,
+      });
+      return `${d}, ${t}`;
     }
-    return dateObj.toLocaleString("en-MY", opts);
+    return d;
   }
 
-  let opts: Intl.DateTimeFormatOptions = {
+  // "13 Mar 2026" or "13 Mar 2026, 09:10 AM"
+  const dateStr = dateObj.toLocaleDateString("en-MY", {
     day: "2-digit",
     month: "short",
     year: "numeric",
-  };
-
+  });
   if (time) {
-    opts = {
-      ...opts,
-      hour: "numeric",
+    const timeStr = dateObj.toLocaleTimeString("en-MY", {
+      hour: "2-digit",
       minute: "2-digit",
       hour12: true,
-    };
+    });
+    return `${dateStr}, ${timeStr}`;
   }
-
-  return dateObj.toLocaleString("en-MY", opts);
+  return dateStr;
 };
 
 export const extractDate = (dateString: string) => {

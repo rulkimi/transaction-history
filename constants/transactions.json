@@ -12,7 +12,7 @@
       "status": "Success",
       "from": "Main Account",
       "to": "Giant Hypermarket",
-      "reference_id": "TRX-MY-20260310-211000-8a796053"
+      "reference_id": "TRX-8a796053"
     },
     {
       "id": "1e321c06-419e-414d-845c-f2a762323610",
@@ -24,7 +24,7 @@
       "status": "Failed",
       "from": "TNG Wallet",
       "to": "Chatime",
-      "reference_id": "TRX-MY-20260310-154500-1e321c06"
+      "reference_id": "TRX-1e321c06"
     },
     {
       "id": "2bfad7d1-fbbe-4c33-ba30-3c980e270a6d",
@@ -36,7 +36,7 @@
       "status": "Success",
       "from": "Visa Debit",
       "to": "Popular Bookstore",
-      "reference_id": "TRX-MY-20260310-101000-2bfad7d1"
+      "reference_id": "TRX-2bfad7d1"
     },
     {
       "id": "38ccb5ef-d792-4f89-8fc2-17511b3b66d1",
@@ -48,7 +48,7 @@
       "status": "Success",
       "from": "Main Account",
       "to": "Savings Account",
-      "reference_id": "TRX-MY-20260309-180002-38ccb5ef"
+      "reference_id": "TRX-38ccb5ef"
     },
     {
       "id": "e15630f5-82e7-4bf5-9808-f8f8e1bc9bfc",
@@ -60,7 +60,7 @@
       "status": "Success",
       "from": "Main Account",
       "to": "Savings Account",
-      "reference_id": "TRX-MY-20260309-180000-e15630f5"
+      "reference_id": "TRX-e15630f5"
     },
     {
       "id": "a1e1fc6f-9c98-4307-bfcf-6e2bb660784d",
@@ -72,7 +72,7 @@
       "status": "Success",
       "from": "Visa Debit",
       "to": "Restoran Sun Fong",
-      "reference_id": "TRX-MY-20260309-122000-a1e1fc6f"
+      "reference_id": "TRX-a1e1fc6f"
     },
     {
       "id": "c4edaec1-3787-41b3-baec-696f6e69e98d",
@@ -84,7 +84,7 @@
       "status": "Success",
       "from": "TNG Wallet",
       "to": "Watsons",
-      "reference_id": "TRX-MY-20260308-175000-c4edaec1"
+      "reference_id": "TRX-c4edaec1"
     },
     {
       "id": "ffab9c4e-fbe7-4855-9b67-f7b7f49860a5",
@@ -96,7 +96,7 @@
       "status": "Success",
       "from": "Visa Debit",
       "to": "Petronas",
-      "reference_id": "TRX-MY-20260308-200000-ffab9c4e"
+      "reference_id": "TRX-ffab9c4e"
     },
     {
       "id": "379e1805-f3e4-4f6e-bbc6-1a765c345735",
@@ -108,7 +108,7 @@
       "status": "Success",
       "from": "TNG Wallet",
       "to": "MRT Corp",
-      "reference_id": "TRX-MY-20260308-090000-379e1805"
+      "reference_id": "TRX-379e1805"
     },
     {
       "id": "c36f30fb-7b07-4d49-afb5-9d673aa5b2c0",
@@ -120,7 +120,7 @@
       "status": "Failed",
       "from": "TNG Wallet",
       "to": "Thai Odyssey",
-      "reference_id": "TRX-MY-20260307-140000-c36f30fb"
+      "reference_id": "TRX-c36f30fb"
     },
     {
       "id": "3db56b83-4129-4aae-8a72-6b1589b3602a",
@@ -132,7 +132,7 @@
       "status": "Success",
       "from": "Visa Debit",
       "to": "Agoda",
-      "reference_id": "TRX-MY-20260307-110000-3db56b83"
+      "reference_id": "TRX-3db56b83"
     },
     {
       "id": "df06f1bd-0f36-44e0-9c5e-b58c1fa1cbf4",
@@ -144,7 +144,7 @@
       "status": "Success",
       "from": "TNG Wallet",
       "to": "MBPJ Parking",
-      "reference_id": "TRX-MY-20260306-202500-df06f1bd"
+      "reference_id": "TRX-df06f1bd"
     },
     {
       "id": "f3fda057-f500-4028-99e8-4f802afdede6",
@@ -156,7 +156,7 @@
       "status": "Failed",
       "from": "Main Account",
       "to": "Air Selangor",
-      "reference_id": "TRX-MY-20260306-173000-f3fda057"
+      "reference_id": "TRX-f3fda057"
     },
     {
       "id": "110443bd-94f4-4ab3-a83f-a0bca613c16a",
@@ -168,7 +168,7 @@
       "status": "Success",
       "from": "Visa Debit",
       "to": "Shopee",
-      "reference_id": "TRX-MY-20260306-091200-110443bd"
+      "reference_id": "TRX-110443bd"
     },
     {
       "id": "ca9e882a-8d66-41cf-bf42-7469093d1958",
@@ -180,7 +180,7 @@
       "status": "Success",
       "from": "TNG Wallet",
       "to": "Main Account",
-      "reference_id": "TRX-MY-20260305-182100-ca9e882a"
+      "reference_id": "TRX-ca9e882a"
     },
     {
       "id": "cb8b1f1f-7e46-4ae2-b5cc-02ad4f901954",
@@ -192,7 +192,7 @@
       "status": "Success",
       "from": "Main Account",
       "to": "TNG Wallet",
-      "reference_id": "TRX-MY-20260305-182000-cb8b1f1f"
+      "reference_id": "TRX-cb8b1f1f"
     },
     {
       "id": "1f68dfbe-b64e-43e4-829a-5949becea20c",
@@ -204,7 +204,7 @@
       "status": "Success",
       "from": "Visa Debit",
       "to": "Subway",
-      "reference_id": "TRX-MY-20260305-134500-1f68dfbe"
+      "reference_id": "TRX-1f68dfbe"
     },
     {
       "id": "e777deb7-2107-484e-8781-208b2839cb2d",
@@ -216,7 +216,7 @@
       "status": "Success",
       "from": "Main Account",
       "to": "Maybank Finance",
-      "reference_id": "TRX-MY-20260305-101000-e777deb7"
+      "reference_id": "TRX-e777deb7"
     },
     {
       "id": "11514707-5316-400c-b786-cf491b94e23b",
@@ -228,7 +228,7 @@
       "status": "Success",
       "from": "Visa Debit",
       "to": "Restoran Ali",
-      "reference_id": "TRX-MY-20260304-090000-11514707"
+      "reference_id": "TRX-11514707"
     },
     {
       "id": "2735c5bb-e903-48ae-a511-2f788c7e8fac",
@@ -240,7 +240,7 @@
       "status": "Success",
       "from": "Main Account",
       "to": "Digi",
-      "reference_id": "TRX-MY-20260304-200000-2735c5bb"
+      "reference_id": "TRX-2735c5bb"
     },
     {
       "id": "fa39bc7b-0787-4599-962c-f0413fd5d541",
@@ -252,7 +252,7 @@
       "status": "Success",
       "from": "TNG Wallet",
       "to": "7-Eleven",
-      "reference_id": "TRX-MY-20260304-115000-fa39bc7b"
+      "reference_id": "TRX-fa39bc7b"
     },
     {
       "id": "e167f401-9c68-4e4d-8b46-97119f6e871e",
@@ -264,7 +264,7 @@
       "status": "Reversed",
       "from": "Aiman",
       "to": "Main Account",
-      "reference_id": "TRX-MY-20260303-162002-e167f401"
+      "reference_id": "TRX-e167f401"
     },
     {
       "id": "dfd248e8-cd9c-425c-af04-ae16e803d0bb",
@@ -276,7 +276,7 @@
       "status": "Success",
       "from": "Main Account",
       "to": "Aiman",
-      "reference_id": "TRX-MY-20260303-162000-dfd248e8"
+      "reference_id": "TRX-dfd248e8"
     },
     {
       "id": "e77b91fc-f66e-49c3-8c1f-5891b799c930",
@@ -288,7 +288,7 @@
       "status": "Success",
       "from": "Visa Debit",
       "to": "FamilyMart",
-      "reference_id": "TRX-MY-20260303-143200-e77b91fc"
+      "reference_id": "TRX-e77b91fc"
     },
     {
       "id": "079956a4-8d27-43b0-8597-65688c98e1d2",
@@ -300,7 +300,7 @@
       "status": "Success",
       "from": "Main Account",
       "to": "TNB",
-      "reference_id": "TRX-MY-20260302-211000-079956a4"
+      "reference_id": "TRX-079956a4"
     },
     {
       "id": "b9c4b482-629e-40e7-8503-fa6c76155b09",
@@ -312,7 +312,7 @@
       "status": "Success",
       "from": "TNG Wallet",
       "to": "RapidKL",
-      "reference_id": "TRX-MY-20260302-091500-b9c4b482"
+      "reference_id": "TRX-b9c4b482"
     },
     {
       "id": "99d65ea3-3c10-46aa-b9c8-9464db1be27d",
@@ -324,7 +324,7 @@
       "status": "Success",
       "from": "Visa Debit",
       "to": "Grab",
-      "reference_id": "TRX-MY-20260302-192000-99d65ea3"
+      "reference_id": "TRX-99d65ea3"
     },
     {
       "id": "48b25680-020a-405c-a0e3-beee68775818",
@@ -336,7 +336,7 @@
       "status": "Success",
       "from": "Main Account",
       "to": "PLUS Highway",
-      "reference_id": "TRX-MY-20260301-124500-48b25680"
+      "reference_id": "TRX-48b25680"
     },
     {
       "id": "751d4573-990d-4d52-b8c8-9277966eb4a7",
@@ -348,7 +348,7 @@
       "status": "Success",
       "from": "Main Account",
       "to": "Tealive Mid Valley",
-      "reference_id": "TRX-MY-20260301-102400-751d4573"
+      "reference_id": "TRX-751d4573"
     },
     {
       "id": "e4c5c7d7-d793-4adc-aafa-5f417f7dba2e",
@@ -360,7 +360,7 @@
       "status": "Success",
       "from": "ACME Sdn Bhd",
       "to": "Main Account",
-      "reference_id": "TRX-MY-20260301-080000-e4c5c7d7"
+      "reference_id": "TRX-e4c5c7d7"
     }
   ]
 }

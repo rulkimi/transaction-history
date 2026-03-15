@@ -1,7 +1,7 @@
 import { formatPrice } from "@/utils/format-price";
 import { useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
-import { Eye, EyeOff } from "lucide-react-native";
+import { EyeIcon, EyeOffIcon } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
 
 interface CurrentBalanceProps {
@@ -26,9 +26,9 @@ export default function CurrentBalance({ balance }: CurrentBalanceProps) {
           accessibilityLabel={isVisible ? "Hide balance" : "Show balance"}
         >
           {isVisible ? (
-            <EyeOff color={isDarkMode ? "white" : "black"} size={24} />
+            <EyeOffIcon color={isDarkMode ? "white" : "black"} size={24} />
           ) : (
-            <Eye color={isDarkMode ? "white" : "dark"} size={24} />
+            <EyeIcon color={isDarkMode ? "white" : "black"} size={24} />
           )}
         </TouchableOpacity>
       </View>

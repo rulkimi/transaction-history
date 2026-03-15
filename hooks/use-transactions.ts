@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useCallback } from "react";
 import transactions from "@/constants/transactions.json";
 import { Transaction } from "@/types";
 import { extractDate } from "@/utils/date";
@@ -28,8 +28,14 @@ export function useTransactions() {
     }));
   }, [transactionHistory]);
 
+  const getTransactionById = useCallback(
+    (id: string) => transactionHistory.find(tx => tx.id === id),
+    [transactionHistory]
+  );
+
   return {
     groupedTransactions,
     transactionHistory,
+    getTransactionById,
   };
 }
