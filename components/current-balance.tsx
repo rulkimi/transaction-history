@@ -1,6 +1,6 @@
 import { formatPrice } from "@/utils/format-price";
 import { View, Text, TouchableOpacity, ActivityIndicator } from "react-native";
-import { EyeIcon, EyeOffIcon, ShieldCheck } from "lucide-react-native";
+import { EyeIcon, EyeOffIcon } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
 import { BiometricProtector } from "./biometric-protector";
 
@@ -37,14 +37,7 @@ export default function CurrentBalance({ balance }: CurrentBalanceProps) {
               ) : isRevealed ? (
                 <EyeOffIcon color={iconColor} size={24} />
               ) : (
-                <View className="relative">
-                  <EyeIcon color={iconColor} size={24} />
-                  <ShieldCheck
-                    size={12}
-                    color="#3b82f6"
-                    className="absolute -bottom-0.5 -right-1"
-                  />
-                </View>
+                <EyeIcon color={iconColor} size={24} />
               )}
             </TouchableOpacity>
           </View>

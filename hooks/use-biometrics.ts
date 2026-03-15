@@ -25,8 +25,7 @@ export interface BiometricState {
 
 const ERROR_MESSAGES: Record<BiometricError, string> = {
   not_available: "Biometric hardware is not available on this device.",
-  not_enrolled:
-    "No biometrics enrolled. Please set up biometrics in your device settings.",
+  not_enrolled: "No biometrics enrolled. Please set up biometrics in your device settings.",
   auth_failed: "Authentication failed. Please try again.",
   cancelled: "Authentication was cancelled.",
   lockout: "Too many failed attempts. Please try again later.",
@@ -55,7 +54,6 @@ export function useBiometrics(): BiometricState {
       );
     }
   }, []);
-
 
   const clearError = useCallback(() => {
     setError(null);
@@ -146,9 +144,8 @@ export function useBiometrics(): BiometricState {
       } else {
         setErrorState("auth_failed");
       }
-
       return false;
-    } catch (e) {
+    } catch {
       setErrorState("unknown");
       return false;
     } finally {

@@ -110,7 +110,7 @@ export default function BiometricGate({ onAuthenticated }: BiometricGateProps) {
         pointerEvents="none"
       />
       
-      <View className="w-full max-w-[380px] bg-card border border-border/50 rounded-[40px] p-8 items-center shadow-2xl">
+      <View className="w-full max-w-[380px] bg-card rounded-[40px] p-8 items-center">
         <View className="w-24 h-24 bg-primary/5 rounded-full items-center justify-center mb-8 border border-primary/10">
           <View className="w-20 h-20 bg-primary/10 rounded-full items-center justify-center">
             {renderIcon()}
@@ -132,8 +132,8 @@ export default function BiometricGate({ onAuthenticated }: BiometricGateProps) {
         ) : !isHardError ? (
           <TouchableOpacity
             className={[
-              "w-full h-16 flex-row items-center justify-center rounded-2xl",
-              error === "lockout" ? "bg-muted" : "bg-primary shadow-lg shadow-primary/30"
+              "w-full h-16 flex-row items-center justify-center rounded-2xl gap-2",
+              error === "lockout" ? "bg-muted" : "bg-primary"
             ].join(" ")}
             onPress={authenticate}
             disabled={error === "lockout"}
@@ -151,8 +151,8 @@ export default function BiometricGate({ onAuthenticated }: BiometricGateProps) {
         ) : null}
 
         {error === "not_enrolled" && (
-          <View className="bg-muted/50 rounded-2xl p-5 mt-8 border border-border/50 flex-row items-start">
-            <Info size={18} color="#3b82f6" className="mr-3 mt-0.5" />
+          <View className="rounded-2xl p-3 border border-border flex-row items-start gap-1.5">
+            <Info size={18} color="#3b82f6" />
             <View className="flex-1">
               <Text className="text-foreground font-semibold text-sm mb-1">
                 Setup Required
@@ -165,13 +165,16 @@ export default function BiometricGate({ onAuthenticated }: BiometricGateProps) {
         )}
 
         {error === "not_available" && (
-          <View className="bg-destructive/10 rounded-2xl p-5 mt-8 border border-destructive/20">
-            <Text className="text-destructive font-bold text-center text-sm mb-1">
-              Hardware Missing
-            </Text>
-            <Text className="text-destructive/80 text-xs text-center leading-5">
-              Secure hardware was not detected. Please use a supported device.
-            </Text>
+          <View className="rounded-2xl p-5 mt-8 border border-border flex-row items-start gap-1.5">
+            <Info size={18} color="#ef4444" />
+            <View className="flex-1">
+              <Text className="text-destructive font-semibold text-sm mb-1">
+                Hardware Missing
+              </Text>
+              <Text className="text-muted-foreground text-xs leading-5">
+                Secure hardware was not detected. Please use a supported device.
+              </Text>
+            </View>
           </View>
         )}
       </View>
