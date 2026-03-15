@@ -11,7 +11,9 @@ import {
   ShieldOff,
   AlertCircle,
   Info,
+  Scan,
 } from "lucide-react-native";
+import * as LocalAuthentication from "expo-local-authentication";
 import { useBiometrics } from "@/hooks/use-biometrics";
 
 interface BiometricGateProps {
@@ -26,6 +28,7 @@ export default function BiometricGate({ onAuthenticated }: BiometricGateProps) {
     errorMessage,
     hasHardware,
     isEnrolled,
+    supportedTypes,
     authenticate,
   } = useBiometrics();
 
@@ -53,9 +56,24 @@ export default function BiometricGate({ onAuthenticated }: BiometricGateProps) {
     if (error && error !== "cancelled") {
       return <AlertCircle size={48} color="#f59e0b" />;
     }
-    if (isChecking) {
+    
+    // Default to a generic scan icon if checking and we don't know types yet
+    if (isChecking && supportedTypes.length === 0) {
       return <Fingerprint size={48} color="#3b82f6" />;
     }
+
+    if (supportedTypes.includes(LocalAuthentication.AuthenticationType.FACIAL_RECOGNITION)) {
+      return <ScanFace size={48} color="#3b82f6" />;
+    }
+
+    if (supportedTypes.includes(LocalAuthentication.AuthenticationType.FINGERPRINT)) {
+      return <Fingerprint size={48} color="#3b82f6" />;
+    }
+
+    if (supportedTypes.includes(LocalAuthentication.AuthenticationType.IRIS)) {
+      return <Scan size={48} color="#3b82f6" />;
+    }
+
     return <ScanFace size={48} color="#3b82f6" />;
   };
 
@@ -70,7 +88,15 @@ export default function BiometricGate({ onAuthenticated }: BiometricGateProps) {
   const renderSubtitle = () => {
     if (errorMessage) return errorMessage;
     if (isChecking && !hasHardware) return "Verifying security protocols…";
-    return "Please verify your identity using Face ID or Touch ID to continue.";
+
+    const hasFace = supportedTypes.includes(LocalAuthentication.AuthenticationType.FACIAL_RECOGNITION);
+    const hasFingerprint = supportedTypes.includes(LocalAuthentication.AuthenticationType.FINGERPRINT);
+    
+    if (hasFace && hasFingerprint) return "Please verify your identity using Face ID or Touch ID to continue.";
+    if (hasFace) return "Please verify your identity using Face ID to continue.";
+    if (hasFingerprint) return "Please verify your identity using Fingerprint to continue.";
+    
+    return "Please verify your identity to continue.";
   };
 
   return (
@@ -113,7 +139,11 @@ export default function BiometricGate({ onAuthenticated }: BiometricGateProps) {
             disabled={error === "lockout"}
             activeOpacity={0.8}
           >
-            <Fingerprint size={22} color="#ffffff" className="mr-3" />
+            {supportedTypes.includes(LocalAuthentication.AuthenticationType.FACIAL_RECOGNITION) ? (
+              <ScanFace size={22} color="#ffffff" className="mr-3" />
+            ) : (
+              <Fingerprint size={22} color="#ffffff" className="mr-3" />
+            )}
             <Text className="text-white text-lg font-bold tracking-tight">
               {error ? "Retry Auth" : "Unlock Now"}
             </Text>
@@ -128,7 +158,7 @@ export default function BiometricGate({ onAuthenticated }: BiometricGateProps) {
                 Setup Required
               </Text>
               <Text className="text-muted-foreground text-xs leading-5">
-                On simulator: Features → Face ID → Enrolled. On device: Check iOS Settings.
+                On simulator: Features → Face ID/Touch ID → Enrolled. On device: Check security settings.
               </Text>
             </View>
           </View>

@@ -18,6 +18,7 @@ export interface BiometricState {
   errorMessage: string | null;
   hasHardware: boolean;
   isEnrolled: boolean;
+  supportedTypes: LocalAuthentication.AuthenticationType[];
   authenticate: () => Promise<boolean>;
   reset: () => void;
 }
@@ -25,7 +26,7 @@ export interface BiometricState {
 const ERROR_MESSAGES: Record<BiometricError, string> = {
   not_available: "Biometric hardware is not available on this device.",
   not_enrolled:
-    "No biometrics enrolled. On a simulator, go to Features → Face ID → Enrolled. On a real device, set up Face ID or fingerprint in Settings.",
+    "No biometrics enrolled. Please set up biometrics in your device settings.",
   auth_failed: "Authentication failed. Please try again.",
   cancelled: "Authentication was cancelled.",
   lockout: "Too many failed attempts. Please try again later.",
@@ -39,10 +40,10 @@ export function useBiometrics(): BiometricState {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [hasHardware, setHasHardware] = useState(false);
   const [isEnrolled, setIsEnrolled] = useState(false);
+  const [supportedTypes, setSupportedTypes] = useState<LocalAuthentication.AuthenticationType[]>([]);
 
   const setErrorState = useCallback((kind: BiometricError) => {
     const message = ERROR_MESSAGES[kind];
-    console.log("[Biometrics] ❌ Error:", kind, "—", message);
     setError(kind);
     setErrorMessage(message);
 
@@ -62,7 +63,6 @@ export function useBiometrics(): BiometricState {
   }, []);
 
   const reset = useCallback(() => {
-    console.log("[Biometrics] 🔒 Session reset — re-authentication required");
     setIsAuthenticated(false);
     clearError();
   }, [clearError]);
@@ -82,6 +82,11 @@ export function useBiometrics(): BiometricState {
 
         const enrolled = await LocalAuthentication.isEnrolledAsync();
         setIsEnrolled(enrolled);
+
+        if (enrolled) {
+          const types = await LocalAuthentication.supportedAuthenticationTypesAsync();
+          setSupportedTypes(types);
+        }
 
         if (!enrolled) {
           setErrorState("not_enrolled");
@@ -158,6 +163,7 @@ export function useBiometrics(): BiometricState {
     errorMessage,
     hasHardware,
     isEnrolled,
+    supportedTypes,
     authenticate,
     reset,
   };
