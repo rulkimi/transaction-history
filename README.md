@@ -1,6 +1,7 @@
 ### Assumptions
 - **Currency**: All transaction amounts are assumed to be in **Malaysian Ringgit (RM)**.
 - **Standards**: Development follows the [Expo App Folder Structure Best Practices](https://expo.dev/blog/expo-app-folder-structure-best-practices) for clarity and scalability.
+- **Transaction Direction**: Every transaction is assumed to have a defined "to" and "from" party. The UI for transaction cards and detail views will check for these and display a title based on their presence.
 
 ### Prerequisites
 - **iOS**: Latest version of **Xcode** installed.

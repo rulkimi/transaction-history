@@ -13,7 +13,10 @@
       "infoPlist": {
         "NSFaceIDUsageDescription": "This app uses Face ID to securely unlock your transaction history."
       },
-      "bundleIdentifier": "com.anonymous.transactionhistory"
+      "bundleIdentifier": "com.anonymous.transactionhistory",
+      "entitlements": {
+        "com.apple.developer.networking.wifi-info": true
+      }
     },
     "android": {
       "adaptiveIcon": {

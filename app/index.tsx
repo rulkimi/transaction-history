@@ -1,16 +1,23 @@
-import { View, Text, TouchableOpacity, RefreshControl, ScrollView } from "react-native";
-import { useColorScheme } from "nativewind";
-import transactions from "@/constants/transactions.json";
-import TransactionCard from "@/components/transaction-card";
-import { Transaction } from "@/types";
-import { Link } from "expo-router";
-import { SafeAreaView } from "react-native-safe-area-context";
 import CurrentBalance from "@/components/current-balance";
-import { useRefresh } from "@/hooks/use-refresh";
-import { BellIcon, SettingsIcon } from "lucide-react-native";
-import ViewCard from "@/components/ui/view-card";
-import { cn } from "@/utils/tailwindcss";
+import NetworkBanner from "@/components/network-banner";
+import TransactionCard from "@/components/transaction-card";
 import ScreenBoundary from "@/components/ui/screen-boundary";
+import ViewCard from "@/components/ui/view-card";
+import transactions from "@/constants/transactions.json";
+import { useRefresh } from "@/hooks/use-refresh";
+import { Transaction } from "@/types";
+import { cn } from "@/utils/tailwindcss";
+import { Link } from "expo-router";
+import { BellIcon, SettingsIcon } from "lucide-react-native";
+import { useColorScheme } from "nativewind";
+import {
+  RefreshControl,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function HomeScreen() {
   const transactionHistory = transactions.history as Transaction[];
@@ -23,6 +30,7 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView className="flex-1 bg-background">
+      <NetworkBanner />
       <ScreenBoundary disablePaddingY className="pt-4 gap-4">
         <View className="flex-row items-center justify-between">
           <View>
