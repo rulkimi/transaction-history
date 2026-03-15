@@ -81,10 +81,6 @@ export default function TransactionDetail() {
           value={<Text className="capitalize text-foreground">{transaction.transaction_type}</Text>}
         />
         <DetailRow
-          label="To"
-          value={transaction.to}
-        />
-        <DetailRow
           label="Reference ID"
           value={
             <View className="flex-row items-center">
@@ -99,6 +95,7 @@ export default function TransactionDetail() {
               <Text className="text-foreground">{transaction.reference_id}</Text>
             </View>
           }
+          className="mb-0"
         />
       </ViewCard>
       <Spacer />
