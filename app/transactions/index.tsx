@@ -1,20 +1,13 @@
 import { View, FlatList, Text, RefreshControl } from "react-native";
-import { useCallback, useState } from "react";
 import TransactionCard from "@/components/transaction-card";
 import { useTransactions } from "@/hooks/use-transactions";
+import { useRefresh } from "@/hooks/use-refresh";
 import { formatDate } from "@/utils/date";
 import Spacer from "@/components/ui/spacer";
 
 export default function TransactionsScreen() {
   const { groupedTransactions } = useTransactions();
-  const [refreshing, setRefreshing] = useState(false);
-
-  const onRefresh = useCallback(() => {
-    setRefreshing(true);
-    setTimeout(() => {
-      setRefreshing(false);
-    }, 750);
-  }, []);
+  const { refreshing, onRefresh } = useRefresh();
 
   return (
     <View className="flex-1 p-6 bg-background">
