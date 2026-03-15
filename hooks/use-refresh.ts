@@ -12,8 +12,6 @@ export function useRefresh(onRefreshAction?: () => Promise<void> | void) {
         // mock delay if no action provided
         await new Promise((resolve) => setTimeout(resolve, 750));
       }
-    } catch (error) {
-      console.error("[useRefresh] Error during refresh:", error);
     } finally {
       setRefreshing(false);
     }

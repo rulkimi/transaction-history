@@ -134,7 +134,7 @@ export function BiometricProvider({ children }: { children: React.ReactNode }) {
       } else if (!enrolled) {
         setErrorState("not_enrolled");
       }
-    } catch (e) {
+    } catch {
       setErrorState("unknown");
     } finally {
       dispatch({ type: "SET_CHECKING", isChecking: false });

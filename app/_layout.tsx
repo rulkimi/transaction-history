@@ -5,16 +5,22 @@ import { BiometricProvider } from "@/context/biometric-context";
 import { MaskedValueProvider } from "@/context/masked-value-provider";
 import { useInactivity } from "@/hooks/use-inactivity";
 import { Stack } from "expo-router";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { View } from "react-native";
 import "./global.css";
 
 export default function RootLayout() {
   const [isAppUnlocked, setIsAppUnlocked] = useState(false);
 
-  const { resetIdleTimer } = useInactivity(isAppUnlocked, () => {
+  const { resetIdleTimer } = useInactivity(() => {
     setIsAppUnlocked(false);
   });
+
+  useEffect(() => {
+    if (isAppUnlocked) {
+      resetIdleTimer();
+    }
+  }, [isAppUnlocked, resetIdleTimer]);
 
   const handleTouch = useCallback(() => {
     resetIdleTimer();
@@ -52,10 +58,15 @@ export default function RootLayout() {
                   ),
                 }}
               />
-              <Stack.Screen name="transactions/[id]" options={{ title: "" }} />
+              <Stack.Screen
+                name="transactions/[id]"
+                options={{ title: "" }}
+              />
             </Stack>
             {!isAppUnlocked && (
-              <BiometricGate onAuthenticated={() => setIsAppUnlocked(true)} />
+              <BiometricGate
+                onAuthenticated={() => setIsAppUnlocked(true)}
+              />
             )}
           </View>
         </MaskedValueProvider>

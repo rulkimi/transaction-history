@@ -13,6 +13,10 @@ Following the [React Native Environment Setup](https://reactnative.dev/docs/envi
 
 > "We believe that the best way to experience React Native is through a Framework... most developers benefit from using a React Native Framework like Expo. Expo provides features like file-based routing, high-quality universal libraries, and the ability to write plugins that modify native code without having to manage native files."
 
+## Inactivity & Biometric Security
+
+After **5 minutes of inactivity**, you will be required to authenticate again with Face ID or biometric authentication. This timeout is configured in [`@constants/auth.ts`](./constants/auth.ts), and the inactivity detection and biometric re-authentication logic is implemented in [`@hooks/use-inactivity.ts`](./hooks/use-inactivity.ts).
+
 ---
 
 ## Getting Started

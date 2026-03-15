@@ -2,20 +2,20 @@ import { useCallback, useEffect, useRef } from "react";
 import { AppState, AppStateStatus } from "react-native";
 import { AUTH_EXPIRY_MS } from "@/constants/auth";
 
-export function useInactivity(isEnabled: boolean, onLock: () => void) {
+export function useInactivity(onLock: () => void) {
   const backgroundedAt = useRef<number | null>(null);
   const appState = useRef<AppStateStatus>(AppState.currentState);
   const idleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const resetIdleTimer = useCallback(() => {
-    if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
-
-    if (isEnabled) {
-      idleTimerRef.current = setTimeout(() => {
-        onLock();
-      }, AUTH_EXPIRY_MS);
+    if (idleTimerRef.current) {
+      clearTimeout(idleTimerRef.current);
     }
-  }, [isEnabled, onLock]);
+
+    idleTimerRef.current = setTimeout(() => {
+      onLock();
+    }, AUTH_EXPIRY_MS);
+  }, [onLock]);
 
   useEffect(() => {
     const subscription = AppState.addEventListener(
@@ -23,7 +23,6 @@ export function useInactivity(isEnabled: boolean, onLock: () => void) {
       (nextState: AppStateStatus) => {
         const prev = appState.current;
         appState.current = nextState;
-
         // When moving to background, record the time
         if (
           (prev === "active" || prev === "inactive") &&
@@ -46,15 +45,18 @@ export function useInactivity(isEnabled: boolean, onLock: () => void) {
       }
     );
 
-    return () => subscription.remove();
+    return () => {
+      subscription.remove();
+    };
   }, [resetIdleTimer, onLock]);
 
   useEffect(() => {
-    resetIdleTimer();
     return () => {
-      if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
+      if (idleTimerRef.current) {
+        clearTimeout(idleTimerRef.current);
+      }
     };
-  }, [resetIdleTimer]);
+  }, []);
 
   return {
     resetIdleTimer,

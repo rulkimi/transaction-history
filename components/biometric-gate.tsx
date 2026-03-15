@@ -37,12 +37,25 @@ export default function BiometricGate({ onAuthenticated }: BiometricGateProps) {
     isEnrolled,
     supportedTypes,
     authenticate,
+    reset,
   } = useBiometrics();
 
   const hasAutoTriggered = React.useRef(false);
 
+  // Whenever the gate appears (app is "locked"), reset biometric state
   useEffect(() => {
-    if (!isChecking && hasHardware && isEnrolled && !isAuthenticated && !hasAutoTriggered.current) {
+    reset();
+    hasAutoTriggered.current = false;
+  }, [reset]);
+
+  useEffect(() => {
+    if (
+      !isChecking &&
+      hasHardware &&
+      isEnrolled &&
+      !isAuthenticated &&
+      !hasAutoTriggered.current
+    ) {
       hasAutoTriggered.current = true;
       authenticate();
     }
@@ -125,7 +138,7 @@ export default function BiometricGate({ onAuthenticated }: BiometricGateProps) {
           <Text className="text-foreground text-3xl font-bold text-center tracking-tight">
             {renderTitle()}
           </Text>
-          
+
           <Text className="text-muted-foreground text-base text-center leading-6 px-2">
             {renderSubtitle()}
           </Text>
@@ -150,7 +163,7 @@ export default function BiometricGate({ onAuthenticated }: BiometricGateProps) {
             ) : (
               <Fingerprint size={22} color={btnTextColor} />
             )}
-            <Text 
+            <Text
               style={{ color: btnTextColor }}
               className="text-lg font-bold tracking-tight"
             >
