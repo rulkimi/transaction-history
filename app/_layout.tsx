@@ -4,9 +4,11 @@ import BiometricGate from "@/components/biometric-gate";
 import { useInactivity } from "@/hooks/use-inactivity";
 import { useCallback, useState } from "react";
 import { View } from "react-native";
+import { PrivacyProvider } from "@/context/privacy-context";
+import HeaderPrivacyToggle from "@/components/header-privacy-toggle";
 import "./global.css";
 
-export default function RootLayout() {
+function AppContent() {
   const [isAppUnlocked, setIsAppUnlocked] = useState(false);
 
   const { resetIdleTimer } = useInactivity(isAppUnlocked, () => {
@@ -19,32 +21,47 @@ export default function RootLayout() {
   }, [resetIdleTimer]);
 
   return (
-    <ThemeProvider>
-      <View
-        className="flex-1"
-        onStartShouldSetResponderCapture={handleTouch}
+    <View
+      className="flex-1"
+      onStartShouldSetResponderCapture={handleTouch}
+    >
+      <Stack
+        screenOptions={{
+          headerStyle: { backgroundColor: "var(--background)" },
+          headerTintColor: "var(--foreground)",
+          headerShadowVisible: false,
+        }}
       >
-        <Stack
-          screenOptions={{
-            headerStyle: { backgroundColor: "var(--background)" },
-            headerTintColor: "var(--foreground)",
+        <Stack.Screen
+          name="index"
+          options={{ title: "Home", headerShown: false }}
+        />
+        <Stack.Screen
+          name="transactions/index"
+          options={{
+            title: "Transactions",
+            headerRight: () => <HeaderPrivacyToggle />,
           }}
-        >
-          <Stack.Screen
-            name="index"
-            options={{ title: "Home", headerShown: false }}
-          />
-          <Stack.Screen
-            name="transactions/index"
-            options={{ title: "Transactions" }}
-          />
-          <Stack.Screen name="transactions/[id]" options={{ title: "" }} />
-        </Stack>
+        />
+        <Stack.Screen 
+          name="transactions/[id]" 
+          options={{ title: "" }} 
+        />
+      </Stack>
 
-        {!isAppUnlocked && (
-          <BiometricGate onAuthenticated={() => setIsAppUnlocked(true)} />
-        )}
-      </View>
+      {!isAppUnlocked && (
+        <BiometricGate onAuthenticated={() => setIsAppUnlocked(true)} />
+      )}
+    </View>
+  );
+}
+
+export default function RootLayout() {
+  return (
+    <ThemeProvider>
+      <PrivacyProvider>
+        <AppContent />
+      </PrivacyProvider>
     </ThemeProvider>
   );
 }

@@ -5,6 +5,7 @@ import { Text, View, TouchableOpacity } from "react-native";
 import StatusBadge from "./status-badge";
 import { cn } from "@/utils/tailwindcss";
 import { Link } from "expo-router";
+import { usePrivacy } from "@/context/privacy-context";
 
 interface TransactionCardProps {
   transaction: Transaction;
@@ -15,6 +16,7 @@ export default function TransactionCard({ transaction, className }: TransactionC
   const isDebit = transaction.type === "debit";
   const isTransactionFailed = transaction.status === "Failed";
   const title = isDebit ? `To ${transaction.to}` : `From ${transaction.from}`;
+  const { isRevealed } = usePrivacy();
 
   return (
     <Link href={`/transactions/${transaction.id}`} asChild>
@@ -26,27 +28,34 @@ export default function TransactionCard({ transaction, className }: TransactionC
       >
         <View className="flex-row items-center justify-between w-full mb-2">
           <Text
-            className="text-foreground font-semibold text-lg flex-1"
+            className="text-foreground font-semibold text-lg flex-1 mr-2"
             numberOfLines={1}
           >
             {title}
           </Text>
 
           <Text
-            className={
+            className={cn(
+              "font-medium",
               isDebit 
                 ? "text-foreground" 
                 : isTransactionFailed 
                   ? "text-muted-foreground" 
                   : "text-primary"
-            }
+            )}
           >
-            {isDebit ? "-" : "+"}
-            {formatPrice(transaction.amount)}
+            {isRevealed ? (
+              <>
+                {isDebit ? "-" : "+"}
+                {formatPrice(transaction.amount)}
+              </>
+            ) : (
+              "RM ••••"
+            )}
           </Text>
         </View>
         <View className="flex-row justify-between w-full">
-          <Text className="text-muted-foreground">
+          <Text className="text-muted-foreground text-sm">
             {formatDate(transaction.date)}
           </Text>
           <StatusBadge status={transaction.status} />
@@ -55,3 +64,4 @@ export default function TransactionCard({ transaction, className }: TransactionC
     </Link>
   );
 }
+

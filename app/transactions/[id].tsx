@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, TouchableOpacity, ToastAndroid, Platform, Alert } from "react-native";
+import { View, Text, ScrollView, TouchableOpacity, ToastAndroid, Platform, Alert, ActivityIndicator } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import { useTransactions } from "@/hooks/use-transactions";
 import { formatDate } from "@/utils/date";
@@ -6,9 +6,11 @@ import { formatPrice } from "@/utils/format-price";
 import StatusBadge from "@/components/status-badge";
 import * as Clipboard from "expo-clipboard";
 import { ReactNode, useCallback } from "react";
-import { CopyIcon } from "lucide-react-native";
+import { CopyIcon, EyeIcon, EyeOffIcon } from "lucide-react-native";
 import ViewCard from "@/components/ui/view-card";
 import Spacer from "@/components/ui/spacer";
+import { usePrivacy } from "@/context/privacy-context";
+import { useColorScheme } from "nativewind";
 
 interface RowProps {
   label: string;
@@ -28,6 +30,10 @@ function DetailRow({ label, value, className = "mb-2.5" }: RowProps) {
 export default function TransactionDetail() {
   const { id } = useLocalSearchParams();
   const { getTransactionById } = useTransactions();
+  const { colorScheme } = useColorScheme();
+  const isDarkMode = colorScheme === "dark";
+  const iconColor = isDarkMode ? "#94a3b8" : "#64748b";
+  const { isRevealed, togglePrivacy, isAuthenticating } = usePrivacy();
 
   const idStr = Array.isArray(id) ? id[0] : id;
   const transaction = getTransactionById(idStr);
@@ -53,20 +59,45 @@ export default function TransactionDetail() {
   const title = isDebit ? `To ${transaction.to}` : `From ${transaction.from}`;
 
   return (
-    <ScrollView className="flex-1 bg-background px-6 py-12">
-      <View>
-        <Text className="text-foreground text-4xl font-semibold text-center">
-          {isDebit ? "-" : "+"}
-          {formatPrice(transaction.amount)}
-        </Text>
+    <ScrollView className="flex-1 bg-background px-6 py-6">
+      <View className="items-center py-6">
+        <View className="flex-row items-baseline mb-2">
+          <View className="flex-row items-center">
+            <Text className="text-foreground text-5xl font-bold">
+              {isRevealed ? (
+                <>
+                  {isDebit ? "-" : "+"}
+                  {formatPrice(transaction.amount)}
+                </>
+              ) : (
+                "RM •••••••"
+              )}
+            </Text>
+            <TouchableOpacity
+              onPress={togglePrivacy}
+              disabled={isAuthenticating}
+              activeOpacity={0.7}
+              className="w-10 h-10 items-center justify-center rounded-full ml-2"
+              style={!isDarkMode ? { backgroundColor: '#f3f4f6' } : { backgroundColor: '#262626' }}
+            >
+              {isAuthenticating ? (
+                <ActivityIndicator size="small" color={iconColor} />
+              ) : isRevealed ? (
+                <EyeOffIcon color={iconColor} size={20} />
+              ) : (
+                <EyeIcon color={iconColor} size={20} />
+              )}
+            </TouchableOpacity>
+          </View>
+        </View>
         <Text className="text-xl text-center text-foreground font-semibold mt-1">
           {title}
         </Text>
-        <Text className="text-foreground text-center mt-4">
+        <Text className="text-muted-foreground text-center mt-2">
           {formatDate(transaction.date)}
         </Text>
       </View>
-      <Spacer size="2xl" />
+      <Spacer size="xl" />
       <ViewCard>
         <DetailRow
           label="Status"
