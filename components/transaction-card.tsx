@@ -1,11 +1,10 @@
+import MaskedValue from "@/components/masked-value";
 import { Transaction } from "@/types";
 import { formatDate } from "@/utils/date";
-import { formatPrice } from "@/utils/format-price";
-import { Text, View, TouchableOpacity } from "react-native";
-import StatusBadge from "./status-badge";
 import { cn } from "@/utils/tailwindcss";
 import { Link } from "expo-router";
-import { usePrivacy } from "@/context/privacy-context";
+import { Text, TouchableOpacity, View } from "react-native";
+import StatusBadge from "./status-badge";
 
 interface TransactionCardProps {
   transaction: Transaction;
@@ -16,45 +15,38 @@ export default function TransactionCard({ transaction, className }: TransactionC
   const isDebit = transaction.type === "debit";
   const isTransactionFailed = transaction.status === "Failed";
   const title = isDebit ? `To ${transaction.to}` : `From ${transaction.from}`;
-  const { isRevealed } = usePrivacy();
 
   return (
     <Link href={`/transactions/${transaction.id}`} asChild>
       <TouchableOpacity 
         activeOpacity={0.7}
-        className={cn("bg-card p-4 rounded-2xl border-border drop-shadow-sm", className)}
+        className={cn("bg-card p-4 rounded-2xl border-border drop-shadow-sm gap-2", className)}
         accessibilityRole="button"
         accessibilityLabel={`View details for transaction: ${isDebit ? "To" : "From"} ${title}`}
       >
-        <View className="flex-row items-center justify-between w-full mb-2">
+        <View className="flex-row items-center justify-between w-full gap-2">
           <Text
-            className="text-foreground font-semibold text-lg flex-1 mr-2"
+            className="text-foreground font-semibold text-lg flex-1"
             numberOfLines={1}
           >
             {title}
           </Text>
 
-          <Text
+          <MaskedValue
+            amount={transaction.amount}
+            mask="RM ••••"
+            prefix={isDebit ? "-" : "+"}
             className={cn(
-              "font-medium",
+              "bg-transparent",
               isDebit 
                 ? "text-foreground" 
                 : isTransactionFailed 
                   ? "text-muted-foreground" 
                   : "text-primary"
             )}
-          >
-            {isRevealed ? (
-              <>
-                {isDebit ? "-" : "+"}
-                {formatPrice(transaction.amount)}
-              </>
-            ) : (
-              "RM ••••"
-            )}
-          </Text>
+          />
         </View>
-        <View className="flex-row justify-between w-full">
+        <View className="flex-row justify-between w-full items-center">
           <Text className="text-muted-foreground text-sm">
             {formatDate(transaction.date)}
           </Text>

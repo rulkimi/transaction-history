@@ -4,23 +4,24 @@ import { useTransactions } from "@/hooks/use-transactions";
 import { useRefresh } from "@/hooks/use-refresh";
 import { formatDate } from "@/utils/date";
 import Spacer from "@/components/ui/spacer";
+import ScreenBoundary from "@/components/ui/screen-boundary";
 
 export default function TransactionsScreen() {
   const { groupedTransactions } = useTransactions();
   const { refreshing, onRefresh } = useRefresh();
 
   return (
-    <View className="flex-1 p-6 bg-background">
+    <ScreenBoundary className="flex-1 bg-background" disablePaddingY>
       <FlatList
         data={groupedTransactions}
         keyExtractor={item => item.date}
         renderItem={({ item }) => (
-          <View>
-            <Text className="text-muted-foreground text-sm font-semibold mb-2 mt-2 uppercase">
+          <View className="gap-2.5 mt-4">
+            <Text className="text-muted-foreground text-sm font-semibold uppercase">
               {formatDate(item.date, { time: false })}
             </Text>
             {item.data.map(transaction => (
-              <View key={transaction.id} className="mb-3.5">
+              <View key={transaction.id}>
                 <TransactionCard transaction={transaction} />
               </View>
             ))}
@@ -32,6 +33,6 @@ export default function TransactionsScreen() {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       />
-    </View>
+    </ScreenBoundary>
   );
 }

@@ -1,5 +1,5 @@
-import { useState, useCallback } from "react";
-import { useBiometrics } from "@/hooks/use-biometrics";
+import { useState, useCallback, type ReactNode } from "react";
+import { useBiometrics } from "@/context/biometric-context";
 
 interface BiometricProtectorProps {
   children: (props: {
@@ -7,13 +7,12 @@ interface BiometricProtectorProps {
     reveal: () => Promise<void>;
     hide: () => void;
     isAuthenticating: boolean;
-  }) => React.ReactNode;
+  }) => ReactNode;
 }
 
 export function BiometricProtector({ children }: BiometricProtectorProps) {
   const [isRevealed, setIsRevealed] = useState(false);
   const { authenticate, isChecking } = useBiometrics();
-  const [localIsAuthenticating, setLocalIsAuthenticating] = useState(false);
 
   const hide = useCallback(() => {
     setIsRevealed(false);
@@ -25,14 +24,13 @@ export function BiometricProtector({ children }: BiometricProtectorProps) {
       return;
     }
 
-    setLocalIsAuthenticating(true);
     try {
       const success = await authenticate();
       if (success) {
         setIsRevealed(true);
       }
-    } finally {
-      setLocalIsAuthenticating(false);
+    } catch {
+      // Error handled by biometric context
     }
   }, [isRevealed, authenticate, hide]);
 
@@ -42,7 +40,7 @@ export function BiometricProtector({ children }: BiometricProtectorProps) {
         isRevealed,
         reveal,
         hide,
-        isAuthenticating: localIsAuthenticating || (isChecking && !isRevealed),
+        isAuthenticating: isChecking,
       })}
     </>
   );

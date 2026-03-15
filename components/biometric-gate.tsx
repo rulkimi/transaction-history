@@ -14,13 +14,20 @@ import {
   Scan,
 } from "lucide-react-native";
 import * as LocalAuthentication from "expo-local-authentication";
-import { useBiometrics } from "@/hooks/use-biometrics";
+import { cn } from "@/utils/tailwindcss";
+import { useBiometrics } from "@/context/biometric-context";
+import { useColorScheme } from "nativewind";
 
 interface BiometricGateProps {
   onAuthenticated: () => void;
 }
 
 export default function BiometricGate({ onAuthenticated }: BiometricGateProps) {
+  const { colorScheme } = useColorScheme();
+  const isDarkMode = colorScheme === "dark";
+  const primaryColor = isDarkMode ? "#006231" : "#00b96b";
+  const btnTextColor = isDarkMode ? "#dae6e2" : "#ffffff";
+
   const {
     isAuthenticated,
     isChecking,
@@ -63,18 +70,15 @@ export default function BiometricGate({ onAuthenticated }: BiometricGateProps) {
     }
 
     if (supportedTypes.includes(LocalAuthentication.AuthenticationType.FACIAL_RECOGNITION)) {
-      return <ScanFace size={48} color="#3b82f6" />;
+      return <ScanFace size={48} color={primaryColor} />;
     }
-
     if (supportedTypes.includes(LocalAuthentication.AuthenticationType.FINGERPRINT)) {
-      return <Fingerprint size={48} color="#3b82f6" />;
+      return <Fingerprint size={48} color={primaryColor} />;
     }
-
     if (supportedTypes.includes(LocalAuthentication.AuthenticationType.IRIS)) {
-      return <Scan size={48} color="#3b82f6" />;
+      return <Scan size={48} color={primaryColor} />;
     }
-
-    return <ScanFace size={48} color="#3b82f6" />;
+    return <ScanFace size={48} color={primaryColor} />;
   };
 
   const renderTitle = () => {
@@ -102,28 +106,30 @@ export default function BiometricGate({ onAuthenticated }: BiometricGateProps) {
   return (
     <View className="absolute inset-0 bg-background items-center justify-center px-8 z-[999]">
       <View
-        className="absolute -top-24 -right-24 w-80 h-80 bg-primary/10 rounded-full"
+        className="absolute -top-24 -right-24 size-80 bg-primary/10 rounded-full"
         pointerEvents="none"
       />
       <View
-        className="absolute -bottom-20 -left-20 w-72 h-72 bg-blue-500/5 rounded-full"
+        className="absolute -bottom-20 -left-20 size-72 bg-blue-500/5 rounded-full"
         pointerEvents="none"
       />
       
-      <View className="w-full max-w-[380px] bg-card rounded-[40px] p-8 items-center">
-        <View className="w-24 h-24 bg-primary/5 rounded-full items-center justify-center mb-8 border border-primary/10">
-          <View className="w-20 h-20 bg-primary/10 rounded-full items-center justify-center">
+      <View className="w-[90%] max-w-md bg-card rounded-[40px] p-8 items-center gap-4">
+        <View className="size-icon-lg bg-primary/5 rounded-full items-center justify-center border border-primary/10">
+          <View className="size-20 bg-primary/10 rounded-full items-center justify-center">
             {renderIcon()}
           </View>
         </View>
 
-        <Text className="text-foreground text-3xl font-bold text-center mb-3 tracking-tight">
-          {renderTitle()}
-        </Text>
-        
-        <Text className="text-muted-foreground text-base text-center leading-6 mb-10 px-2">
-          {renderSubtitle()}
-        </Text>
+        <View className="items-center gap-2">
+          <Text className="text-foreground text-3xl font-bold text-center tracking-tight">
+            {renderTitle()}
+          </Text>
+          
+          <Text className="text-muted-foreground text-base text-center leading-6 px-2">
+            {renderSubtitle()}
+          </Text>
+        </View>
 
         {isChecking && !error ? (
           <View className="h-14 items-center justify-center">
@@ -131,20 +137,23 @@ export default function BiometricGate({ onAuthenticated }: BiometricGateProps) {
           </View>
         ) : !isHardError ? (
           <TouchableOpacity
-            className={[
-              "w-full h-16 flex-row items-center justify-center rounded-2xl gap-2",
+            className={cn(
+              "w-full h-16 flex-row items-center justify-center rounded-btn gap-3",
               error === "lockout" ? "bg-muted" : "bg-primary"
-            ].join(" ")}
+            )}
             onPress={authenticate}
             disabled={error === "lockout"}
             activeOpacity={0.8}
           >
             {supportedTypes.includes(LocalAuthentication.AuthenticationType.FACIAL_RECOGNITION) ? (
-              <ScanFace size={22} color="#ffffff" className="mr-3" />
+              <ScanFace size={22} color={btnTextColor} />
             ) : (
-              <Fingerprint size={22} color="#ffffff" className="mr-3" />
+              <Fingerprint size={22} color={btnTextColor} />
             )}
-            <Text className="text-white text-lg font-bold tracking-tight">
+            <Text 
+              style={{ color: btnTextColor }}
+              className="text-lg font-bold tracking-tight"
+            >
               {error ? "Retry Auth" : "Unlock Now"}
             </Text>
           </TouchableOpacity>

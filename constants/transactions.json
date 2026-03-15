@@ -265,7 +265,7 @@
       "transaction_type": "Online Banking",
       "status": "Failed",
       "failed_reason": "Sender bank rejected transaction",
-      "from": "AIMAN",
+      "from": "AIMAN ATIF HASSAN BIN ABD. KARIM",
       "to": "Main Account",
       "reference_id": "TRX-E167F401",
       "recipient_reference": null
@@ -278,9 +278,9 @@
       "transaction_type": "Online Banking",
       "status": "Completed",
       "from": "Main Account",
-      "to": "AIMAN",
+      "to": "AIMAN ATIF HASSAN BIN ABD. KARIM",
       "reference_id": "TRX-DFD248E8",
-      "recipient_reference": "Hutang Aiman"
+      "recipient_reference": "duit hutang"
     },
     {
       "id": "e77b91fc-f66e-49c3-8c1f-5891b799c930",

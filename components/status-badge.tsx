@@ -1,31 +1,57 @@
 import { Text, View } from "react-native";
+import { cn } from "@/utils/tailwindcss";
+import { useColorScheme } from "nativewind";
 
 interface StatusBadgeProps {
   status: "Completed" | "Failed";
 }
 
-const STATUS_STYLES: Record<
-  StatusBadgeProps["status"],
-  { text: string; bg: string }
-> = {
+const STATUS_STYLES = {
   Completed: {
-    text: "text-green-800",
-    bg: "bg-green-100 border border-green-200",
+    light: {
+      bg: "bg-[#e7faef]",
+      border: "border-[#69e19a]",
+      text: "text-[#17854f]",
+    },
+    dark: {
+      bg: "bg-[#16432b]",
+      border: "border-[#63e7aa]",
+      text: "text-[#8af5c7]",
+    },
   },
   Failed: {
-    text: "text-red-800",
-    bg: "bg-red-100 border border-red-200",
+    light: {
+      bg: "bg-[#fde7e7]",
+      border: "border-[#f09797]",
+      text: "text-[#b91c1c]",
+    },
+    dark: {
+      bg: "bg-[#441818]",
+      border: "border-[#eb6d6d]",
+      text: "text-[#fca5a5]",
+    },
   },
 };
 
 export default function StatusBadge({ status }: StatusBadgeProps) {
-  const style = STATUS_STYLES[status];
+  const { colorScheme } = useColorScheme();
+  const theme = colorScheme === "dark" ? "dark" : "light";
+  const styles = STATUS_STYLES[status] ? STATUS_STYLES[status][theme] : STATUS_STYLES.Completed[theme];
 
   return (
     <View
-      className={`flex-row items-center px-2 py-0.5 rounded-full ${style.bg}`}
+      className={cn(
+        "flex-row items-center px-2.5 py-0.5 rounded-full border",
+        styles.bg,
+        styles.border
+      )}
     >
-      <Text className={`font-semibold text-xs ${style.text}`}>
+      <Text
+        className={cn(
+          "font-bold text-[10px] uppercase tracking-wider",
+          styles.text
+        )}
+      >
         {status}
       </Text>
     </View>

@@ -38,4 +38,4 @@ Following the [React Native Environment Setup](https://reactnative.dev/docs/envi
 - **Dark Mode**: Adapts to system light/dark mode settings
 
 ## Disclaimer
-Note that while **Face ID** has been tested and verified, **Fingerprint** and **Android-specific biometrics** have not been fully validated due to development time constraints.
+Note that while **Face ID** has been tested and verified, **Fingerprint** and **Android-specific biometrics** have not been fully validated due to development time constraints. Also, all displayed amounts and totals are arbitrary; no validation or checks have been performed to ensure the accuracy of these values.
