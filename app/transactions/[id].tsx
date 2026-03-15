@@ -20,7 +20,7 @@ function DetailRow({ label, value, className = "mb-2.5" }: RowProps) {
   return (
     <View className={`flex-row items-center justify-between ${className}`}>
       <Text className="text-muted-foreground">{label}</Text>
-      <Text className="text-foreground">{value}</Text>
+      <Text className="text-foreground font-semibold">{value}</Text>
     </View>
   );
 }
@@ -50,16 +50,16 @@ export default function TransactionDetail() {
   }
 
   const isDebit = transaction.type === "debit";
-  const title = isDebit ? `to ${transaction.to}` : `from ${transaction.from}`;
+  const title = isDebit ? `To ${transaction.to}` : `From ${transaction.from}`;
 
   return (
     <ScrollView className="flex-1 bg-background px-6 py-12">
       <View>
-        <Text className="text-foreground text-4xl font-bold text-center">
+        <Text className="text-foreground text-4xl font-semibold text-center">
           {isDebit ? "-" : "+"}
           {formatPrice(transaction.amount)}
         </Text>
-        <Text className="text-xl text-center text-foreground font-bold mt-1">
+        <Text className="text-xl text-center text-foreground font-semibold mt-1">
           {title}
         </Text>
         <Text className="text-foreground text-center mt-4">
@@ -92,17 +92,47 @@ export default function TransactionDetail() {
               >
                 <CopyIcon size={12} color="blue" />
               </TouchableOpacity>
-              <Text className="text-foreground">{transaction.reference_id}</Text>
+              <Text className="text-foreground font-semibold">
+                {transaction.reference_id}
+              </Text>
             </View>
           }
           className="mb-0"
         />
       </ViewCard>
       <Spacer />
-      <ViewCard>
-        <Text className="text-muted-foreground">Payment details</Text>
-        <Text className="text-foreground font-semibold mt-2">{transaction.description}</Text>
-      </ViewCard>
+      {(transaction.recipient_reference || transaction.payment_details || transaction.failed_reason) && (
+        <ViewCard className="gap-4">
+          {transaction.recipient_reference && (
+            <View>
+              <Text className="text-muted-foreground">Recipient reference</Text>
+              <Text className="text-foreground font-semibold mt-2">
+                {transaction.recipient_reference}
+              </Text>
+            </View>
+          )}
+          {transaction.payment_details && (
+            <View>
+              <Text className="text-muted-foreground">
+                Payment details
+              </Text>
+              <Text className="text-foreground font-semibold mt-2">
+                {transaction.payment_details}
+              </Text>
+            </View>
+          )}
+          {transaction.failed_reason && (
+            <View>
+              <Text className="text-muted-foreground">
+                Failure reason
+              </Text>
+              <Text className="text-foreground font-semibold mt-2">
+                {transaction.failed_reason}
+              </Text>
+            </View>
+          )}
+        </ViewCard>
+      )}
     </ScrollView>
   );
 }

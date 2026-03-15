@@ -13,7 +13,8 @@ interface TransactionCardProps {
 
 export default function TransactionCard({ transaction, className }: TransactionCardProps) {
   const isDebit = transaction.type === "debit";
-  const title = isDebit ? `to ${transaction.to}` : `from ${transaction.from}`;
+  const isTransactionFailed = transaction.status === "Failed";
+  const title = isDebit ? `To ${transaction.to}` : `From ${transaction.from}`;
 
   return (
     <Link href={`/transactions/${transaction.id}`} asChild>
@@ -21,17 +22,25 @@ export default function TransactionCard({ transaction, className }: TransactionC
         activeOpacity={0.7}
         className={cn("bg-card p-4 rounded-2xl border-border drop-shadow-sm", className)}
         accessibilityRole="button"
-        accessibilityLabel={`View details for transaction: ${title}`}
+        accessibilityLabel={`View details for transaction: ${isDebit ? "To" : "From"} ${title}`}
       >
         <View className="flex-row items-center justify-between w-full mb-2">
           <Text
-            className="text-foreground font-semibold text-xl flex-1"
+            className="text-foreground font-semibold text-lg flex-1"
             numberOfLines={1}
           >
             {title}
           </Text>
 
-          <Text className={isDebit ? "text-foreground" : "text-primary"}>
+          <Text
+            className={
+              isDebit 
+                ? "text-foreground" 
+                : isTransactionFailed 
+                  ? "text-muted-foreground" 
+                  : "text-primary"
+            }
+          >
             {isDebit ? "-" : "+"}
             {formatPrice(transaction.amount)}
           </Text>
