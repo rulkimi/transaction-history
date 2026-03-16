@@ -5,10 +5,21 @@ import { useRefresh } from "@/hooks/use-refresh";
 import { formatDate } from "@/utils/date";
 import Spacer from "@/components/ui/spacer";
 import ScreenBoundary from "@/components/ui/screen-boundary";
+import { getMockPullToRefreshTransaction } from "@/utils/mock-transaction";
 
 export default function TransactionsScreen() {
-  const { groupedTransactions } = useTransactions();
-  const { refreshing, onRefresh } = useRefresh();
+  const {
+    groupedTransactions,
+    setTransactionHistory,
+    setCurrentBalance,
+  } = useTransactions();
+  const { refreshing, onRefresh } = useRefresh(async () => {
+    await new Promise(resolve => setTimeout(resolve, 750));
+
+    const mockTransaction = getMockPullToRefreshTransaction();
+    setTransactionHistory(prev => [mockTransaction, ...prev]);
+    setCurrentBalance(prev => prev + mockTransaction.amount);
+  });
 
   return (
     <ScreenBoundary className="flex-1 bg-background" disablePaddingY>

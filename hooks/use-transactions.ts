@@ -1,7 +1,7 @@
 import { useMemo, useCallback } from "react";
-import transactions from "@/constants/transactions.json";
 import { Transaction } from "@/types";
 import { extractDate } from "@/utils/date";
+import { useTransactionsContext } from "@/context/transactions-context";
 
 interface GroupedTransactions {
   date: string;
@@ -9,12 +9,18 @@ interface GroupedTransactions {
 }
 
 export function useTransactions() {
-  const transactionHistory = transactions.history as Transaction[];
+  const {
+    transactionHistory,
+    setTransactionHistory,
+    currentBalance,
+    setCurrentBalance,
+  } = useTransactionsContext();
 
   const groupedTransactions: GroupedTransactions[] = useMemo(() => {
-    // Group transactions by just date (YYYY-MM-DD)
+    // Group transactions by just date (YYYY-MM-DD), filter out those where isMock is true
     const grouped: Record<string, Transaction[]> = {};
     transactionHistory.forEach(tx => {
+      if (tx.isMock === true) return;
       const justDate = extractDate(tx.date);
       if (!grouped[justDate]) grouped[justDate] = [];
       grouped[justDate].push(tx);
@@ -36,6 +42,9 @@ export function useTransactions() {
   return {
     groupedTransactions,
     transactionHistory,
+    setTransactionHistory,
+    currentBalance,
+    setCurrentBalance,
     getTransactionById,
   };
 }

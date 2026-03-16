@@ -3,10 +3,11 @@ import NetworkBanner from "@/components/network-banner";
 import TransactionCard from "@/components/transaction-card";
 import ScreenBoundary from "@/components/ui/screen-boundary";
 import ViewCard from "@/components/ui/view-card";
-import transactions from "@/constants/transactions.json";
 import { useRefresh } from "@/hooks/use-refresh";
 import { ThemeMode, Transaction } from "@/types";
+import { useTransactionsContext } from "@/context/transactions-context";
 import { cn } from "@/utils/tailwindcss";
+import { getMockPullToRefreshTransaction } from "@/utils/mock-transaction";
 import { Link } from "expo-router";
 import { BellIcon, SettingsIcon } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
@@ -20,9 +21,21 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function HomeScreen() {
-  const transactionHistory = transactions.history as Transaction[];
+  const {
+    transactionHistory,
+    setTransactionHistory,
+    currentBalance,
+    setCurrentBalance,
+  } = useTransactionsContext();
   const recentTransactions = transactionHistory.slice(0, 3);
-  const { refreshing, onRefresh } = useRefresh();
+  const { refreshing, onRefresh } = useRefresh(async () => {
+    await new Promise((resolve) => setTimeout(resolve, 750));
+
+    const mockTransaction: Transaction = getMockPullToRefreshTransaction();
+    setTransactionHistory(prev => [mockTransaction, ...prev]);
+    // mock is a credit, so add its amount
+    setCurrentBalance(prev => prev + mockTransaction.amount);
+  });
 
   const { colorScheme } = useColorScheme();
   const isDarkMode = colorScheme === ThemeMode.Dark;
@@ -63,7 +76,7 @@ export default function HomeScreen() {
         }
       >
         <ScreenBoundary className="gap-6">
-          <CurrentBalance balance={transactions.current_balance} />
+          <CurrentBalance balance={currentBalance} />
           <View>
             <View className="flex-row items-center justify-between mb-2">
               <Text className="text-lg font-semibold text-foreground">

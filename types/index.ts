@@ -29,4 +29,5 @@ export interface Transaction {
   to: string;
   reference_id: string;
   failed_reason?: string;
+  isMock?: boolean;
 }
