@@ -53,7 +53,7 @@ The project utilizes **Expo**, following the [React Native Environment Setup](ht
 
 After **5 minutes of inactivity**, biometric authentication (e.g., Face ID) is required again. The timeout can be configured in [`@/constants/auth.ts`](./constants/auth.ts) and adjusted for testing as needed. Inactivity detection and re-authentication logic are implemented in [`@/hooks/use-inactivity.ts`](./hooks/use-inactivity.ts).
 
-### Pull to Refresh (Mock Data)
+## Pull to Refresh (Mock Data)
 
 Pull-to-refresh on the Transactions screen is demo-only—it adds a mock transaction to the top of the list on each refresh. All transaction data resides in React context (memory) and is neither persisted nor fetched from a backend. Initial transactions are static demo data loaded from [`@/constants/transactions.json`](./constants/transactions.json).
 
