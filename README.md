@@ -1,4 +1,6 @@
 ### Prerequisites
+
+- **Node.js**: Requires **Node >= 20.19.4**
 - **Terminal or IDE**: A command-line terminal and/or an IDE such as VSCode or Cursor is needed to run commands and build the app.
 - **iOS**: The latest version of **Xcode** is required for building and running the app on iOS devices or simulators.
 - **Android**: **Android Studio** with the necessary SDKs and Emulators must be set up for Android development.
@@ -48,7 +50,7 @@ This project adopts **Expo** following the [React Native Environment Setup](http
 
 ## Inactivity & Biometric Security
 
-After **5 minutes of inactivity**, biometric authentication (such as Face ID) is required again. This timeout is configured in [`@constants/auth.ts`](./constants/auth.ts), and the inactivity detection as well as re-authentication logic are implemented in [`@hooks/use-inactivity.ts`](./hooks/use-inactivity.ts).
+After **5 minutes of inactivity**, biometric authentication (such as Face ID) is required again. This timeout is configurable in [`@/constants/auth.ts`](./constants/auth.ts) and can be set to a shorter duration for testing purposes. The inactivity detection and re-authentication logic are implemented in [`@/hooks/use-inactivity.ts`](./hooks/use-inactivity.ts).
 
 ---
 
