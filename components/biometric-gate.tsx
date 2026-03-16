@@ -14,6 +14,7 @@ import {
   Scan,
 } from "lucide-react-native";
 import * as LocalAuthentication from "expo-local-authentication";
+import { ThemeMode } from "@/types";
 import { cn } from "@/utils/tailwindcss";
 import { useBiometrics } from "@/context/biometric-context";
 import { useColorScheme } from "nativewind";
@@ -24,7 +25,7 @@ interface BiometricGateProps {
 
 export default function BiometricGate({ onAuthenticated }: BiometricGateProps) {
   const { colorScheme } = useColorScheme();
-  const isDarkMode = colorScheme === "dark";
+  const isDarkMode = colorScheme === ThemeMode.Dark;
   const primaryColor = isDarkMode ? "#006231" : "#00b96b";
   const btnTextColor = isDarkMode ? "#dae6e2" : "#ffffff";
 

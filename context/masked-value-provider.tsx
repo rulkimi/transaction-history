@@ -3,7 +3,7 @@ import React, { createContext, useCallback, useContext, useState } from "react";
 
 interface MaskedValueType {
   isRevealed: boolean;
-  togglePrivacy: () => Promise<void>;
+  toggleMask: () => Promise<void>;
   isAuthenticating: boolean;
 }
 
@@ -17,7 +17,7 @@ export function MaskedValueProvider({
   const [isRevealed, setIsRevealed] = useState(false);
   const { authenticate, isChecking } = useBiometrics();
 
-  const togglePrivacy = useCallback(async () => {
+  const toggleMask = useCallback(async () => {
     if (isRevealed) {
       setIsRevealed(false);
       return;
@@ -37,7 +37,7 @@ export function MaskedValueProvider({
     <MaskedValue.Provider
       value={{
         isRevealed,
-        togglePrivacy,
+        toggleMask,
         isAuthenticating: isChecking,
       }}
     >
@@ -46,10 +46,10 @@ export function MaskedValueProvider({
   );
 }
 
-export function usePrivacy() {
+export function useMaskedValue() {
   const context = useContext(MaskedValue);
   if (context === undefined) {
-    throw new Error("usePrivacy must be used within a MaskedValueProvider");
+    throw new Error("useMaskedValue must be used within a MaskedValueProvider");
   }
   return context;
 }

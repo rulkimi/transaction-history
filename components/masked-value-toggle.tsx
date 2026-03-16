@@ -1,4 +1,5 @@
-import { usePrivacy } from "@/context/masked-value-provider";
+import { useMaskedValue } from "@/context/masked-value-provider";
+import { ThemeMode } from "@/types";
 import { cn } from "@/utils/tailwindcss";
 import { EyeIcon, EyeOffIcon } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
@@ -13,14 +14,14 @@ export default function MaskedValueToggle({
   size = 20,
   className,
 }: MaskedValueToggleProps) {
-  const { isRevealed, togglePrivacy, isAuthenticating } = usePrivacy();
+  const { isRevealed, toggleMask, isAuthenticating } = useMaskedValue();
   const { colorScheme } = useColorScheme();
-  const isDarkMode = colorScheme === "dark";
+  const isDarkMode = colorScheme === ThemeMode.Dark;
   const iconColor = isDarkMode ? "#94a3b8" : "#64748b";
 
   return (
     <TouchableOpacity
-      onPress={togglePrivacy}
+      onPress={toggleMask}
       disabled={isAuthenticating}
       activeOpacity={0.7}
       className={cn(

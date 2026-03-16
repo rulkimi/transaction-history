@@ -5,7 +5,7 @@ import ScreenBoundary from "@/components/ui/screen-boundary";
 import ViewCard from "@/components/ui/view-card";
 import transactions from "@/constants/transactions.json";
 import { useRefresh } from "@/hooks/use-refresh";
-import { Transaction } from "@/types";
+import { ThemeMode, Transaction } from "@/types";
 import { cn } from "@/utils/tailwindcss";
 import { Link } from "expo-router";
 import { BellIcon, SettingsIcon } from "lucide-react-native";
@@ -25,7 +25,7 @@ export default function HomeScreen() {
   const { refreshing, onRefresh } = useRefresh();
 
   const { colorScheme } = useColorScheme();
-  const isDarkMode = colorScheme === "dark";
+  const isDarkMode = colorScheme === ThemeMode.Dark;
   const iconColor = isDarkMode ? "#a2a2a2" : "#626262";
 
   return (

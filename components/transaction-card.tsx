@@ -1,5 +1,5 @@
 import MaskedValue from "@/components/masked-value";
-import { Transaction } from "@/types";
+import { Transaction, TransactionStatus, TransactionType } from "@/types";
 import { formatDate } from "@/utils/date";
 import { cn } from "@/utils/tailwindcss";
 import { Link } from "expo-router";
@@ -12,13 +12,13 @@ interface TransactionCardProps {
 }
 
 export default function TransactionCard({ transaction, className }: TransactionCardProps) {
-  const isDebit = transaction.type === "debit";
-  const isTransactionFailed = transaction.status === "Failed";
+  const isDebit = transaction.type === TransactionType.Debit;
+  const isTransactionFailed = transaction.status === TransactionStatus.Failed;
   const title = isDebit ? `To ${transaction.to}` : `From ${transaction.from}`;
 
   return (
     <Link href={`/transactions/${transaction.id}`} asChild>
-      <TouchableOpacity 
+      <TouchableOpacity
         activeOpacity={0.7}
         className={cn("bg-card p-4 rounded-2xl border-border drop-shadow-sm gap-2", className)}
         accessibilityRole="button"
@@ -37,11 +37,11 @@ export default function TransactionCard({ transaction, className }: TransactionC
             mask="RM ••••"
             prefix={isDebit ? "-" : "+"}
             className={cn(
-              "bg-transparent",
-              isDebit 
-                ? "text-foreground" 
-                : isTransactionFailed 
-                  ? "text-muted-foreground" 
+              "bg-transparent font-medium",
+              isTransactionFailed
+                ? "text-muted-foreground"
+                : isDebit
+                  ? "text-foreground"
                   : "text-primary"
             )}
           />

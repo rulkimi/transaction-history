@@ -5,6 +5,7 @@ import ScreenBoundary from "@/components/ui/screen-boundary";
 import Spacer from "@/components/ui/spacer";
 import ViewCard from "@/components/ui/view-card";
 import { useTransactions } from "@/hooks/use-transactions";
+import { TransactionType } from "@/types";
 import { copyToClipboard } from "@/utils/clipboard";
 import { formatDate } from "@/utils/date";
 import { cn } from "@/utils/tailwindcss";
@@ -47,7 +48,7 @@ export default function TransactionDetail() {
     );
   }
 
-  const isDebit = transaction.type === "debit";
+  const isDebit = transaction.type === TransactionType.Debit;
   const title = isDebit ? `To ${transaction.to}` : `From ${transaction.from}`;
 
   return (

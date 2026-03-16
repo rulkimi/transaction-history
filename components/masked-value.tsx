@@ -1,4 +1,4 @@
-import { usePrivacy } from "@/context/masked-value-provider";
+import { useMaskedValue } from "@/context/masked-value-provider";
 import { formatPrice } from "@/utils/format-price";
 import { cn } from "@/utils/tailwindcss";
 import React from "react";
@@ -17,7 +17,7 @@ export default function MaskedValue({
   className,
   ...props
 }: MaskedValueProps) {
-  const { isRevealed } = usePrivacy();
+  const { isRevealed } = useMaskedValue();
 
   return (
     <Text {...props} className={cn("text-foreground", className)}>
